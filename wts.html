@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Class Activity 2</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="wts.css">
+  <link rel="icon" type="image/x-icon" href="Logo_last.png">
+</head>
+<body>
+  <audio id="cheers" >
+    <source src="cheers.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="points" src="Points.mp3"></audio>
+  <audio id="fail" src="fail.mp3"></audio>
+  <div class="header" style="width:100%; box-shadow:5px 5px 10px rgb(0, 0, 0); padding-bottom:10px;">
+    <img src="Logo.png" width="5%" style="float:left; margin-top:25px;" class="img-responsive">
+    <span> <img src="header.png" width="30%" height="100px" class="img-responsive"></span>
+</div>
+<br>
+<br>
+  <center>
+  <h1 id="heading">Place Value</h1>
+  <div class="maindiv container">
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 imgdiv" style= "height: 450px;">
+      <img id ="math_ques" src="Math Question.jpg"style="width:100%; height:90%; margin-top:5%;">
+    </div>
+  <div id="questiondiv" class="col-lg-7 col-md-7 col-sm-7 col-xs-8"  style= "height: 450px"; >
+    <div id="question"></div>
+    <br><br><br>
+  <div class="menu"><br><ul id="options"></ul></div>
+  <button id="subbtn" class="btn btn-success" onclick="checkAnswer()">Submit Answer</button>
+  <button id="nextbtn" class="btn btn-primary" onclick="newques()" style="display:none">Next</button>
+  <p id="result"></p>
+  </div>
+</div>
+  <script>
+    // Define an array of questions and their options
+    var questions = [
+    
+    {
+      question: "Q 1. What is the place value of 6 in 64?",
+      options: ["60", "70", "6", "64"],
+      answer: "60"
+    },
+
+    {
+      question: "Q 2. On which place do we have 1 in number 125?",
+
+      options: ["Tens place", "Hundreds place", "Ones place", "Thousands place"],
+      answer: "Hundreds place"
+    },
+
+    {
+      question: "Q 3. Find the total number of blocks.",
+      options: ["3 Tens + 5 Ones", "3 Hundreds + 5 Ones", "5 Tens + 3 Ones", "3 Ones +5 Tens"],
+      answer: "3 Tens + 5 Ones"
+    },
+
+    
+    {
+      question: "Q 4.How will write the number in words 245",
+
+      options: ["Two Thousand Forty Five", "Two Hundred Forty Five", "Five Hundred Forty Two", "Twenty Four And Five"],
+      answer: "Two Hundred Forty Five"
+    },
+
+    {
+      question: "Q 5. If Timmy practices writing the number of candies he has with grid charts, and he has 36 candies, what digit does the grid chart represent in the tens place?",
+      options: ["30", "3", "6", "60"],
+      answer: "3"
+    },
+
+    {
+      question: "Q 6. What is the place value of the digit 9 in the numbers on colorful balloons?",
+
+      options: ["9", "90", "900", "0,000"],
+      answer: "900"
+    },
+
+      {
+        question: "Q 7. What number is shown in the picture?",
+
+        options: ["561", "165", "5061", "5601"],
+        answer: "165"
+      },
+
+      {
+        question: "Q 8. If Timmy writes the number 357 in his place value chart, which digit goes in the tens column?",
+
+        options: ["3", "5", "7", "None of the above"],
+        answer: "5"
+      },
+
+      {
+        question: "Q 9. What does Timmy write in the thousands column of his place value chart if he has 4,682 marbles?",
+
+        options: ["4", "6","8","2"],
+        answer: "4"
+      },
+
+      {
+        question: "Q 10. Timmy has 547 apples. If he wants to create a place value chart to represent the number of apples, what digit will he write in the hundreds column?",
+
+        options: ["5", "4", "7", "None of the above"],
+        answer: "5"
+      },
+
+      {
+        question: "Q 11. There are 8,965 books in Timmy's library. If he wants to organize the books into groups based on their place values, how many books will he write in the tens column of his place value chart?",
+
+
+        options: ["6", "5", "9", "8"],
+        answer: "6"
+      },
+
+      {
+        question: "Q 12. Which number’s red coloured digit is worth 300?",
+
+
+        options: ["(a)","(b)","(c)","(d)"],
+        answer: "(c)"
+      },
+
+      {
+        question: "Q 13. Timmy sees 180 fish in the pond. How is '180' written in words?",
+
+        options: ["Eighteen", "One hundred eighty", "Eight hundred", "Eight thousand"],
+        answer: "One hundred eighty"
+      },
+
+      {
+        question: "Q 14. Timmy has 40 pencils. How is '40' written in short form?",
+
+
+        options: ["Four", "Forty", "Four hundred", "Forty-four"],
+        answer: "Forty"
+      },
+
+      {
+        question: "Q 15. Timmy observes 4,321 butterflies fluttering in the garden. How is '4,321' written in words?",
+        options: ["Forty-two","Four thousand three hundred twenty-one", "Four hundred twenty-three","Four thousand twenty-one"],
+        answer: "Four thousand three hundred twenty-one"
+      },
+
+      {
+        question: "Q 16. Timmy counts 678 shells on the beach. How is '678' written in short form?",
+
+        options: ["Sixty-seven", "Six hundred seventy-eight", "Six thousand seventy-eight", "Six hundred eighty"],
+        answer: "Six hundred seventy-eight"
+      },
+
+      {
+        question: "Q 17. Timmy discovers 6 hundreds + 6 tens + 3 ones. What is the short form of this number?",
+
+        options: ["6,630","6,603","663","6063"],
+        answer: "663"
+      },
+
+      {
+        question: "Q 18. Write the compact form for the given expanded form: 4 hundreds + 3 tens + 2 ones.",
+
+        options: ["432", "243","420","320"],
+        answer: "432"
+      },
+
+      {
+        question: "Q 19. There are 5 hundreds of students in a school, 2 tens, and 3 ones. What is the short form of the total number of students?",
+
+        options: ["523","532","325","352"],
+        answer: "523"
+      },
+
+      {
+        question: "Q 20. Sarah bought 6 tens of white chocolates and 2 hundreds of dark chocolate. What is the short form of the total number of chocolates she bought?",
+
+
+        options: ["260", "206","620","602"],
+        answer: "260"
+      },
+
+      {
+        question: "Q 21. Sarah bought 4321 candies for her friends",
+
+
+        options: ["Four Thousand, Three Hundred Twenty One", "One Thousand, Two Hundred and Thirty Four"],
+        answer:"Four Thousand, Three Hundred Twenty One"
+      },
+      // Add more questions here
+    ];
+
+    //define the array of images
+
+    var img= ["Assets/1.jpg","Assets/2.jpg","Assets/3.jpg","Assets/4.jpg","Assets/5.jpg","Assets/6.jpg","Assets/7.jpg","Assets/8.jpg","Assets/9.jpg","Assets/10.jpg","Assets/11.jpg","Assets/12.jpg","Assets/13.jpg","Assets/14.jpg","Assets/15.jpg","Assets/16.jpg","Assets/17.jpg","Assets/18.jpg","Assets/19.jpg","Assets/20.jpg","Assets/21.jpg"]
+    
+    // Get a random question from the array
+
+    var randomQuestion = questions[0];
+    var updatedimage = img[0]
+    document.getElementById("math_ques").src = updatedimage
+    document.getElementById("question").innerHTML = randomQuestion.question;
+    
+    randomQuestion.options.forEach(function(option) {
+      var li = document.createElement("li");
+      li.innerHTML = '<input type="radio" name="answer" value="' + option + '"> ' + option;
+      document.getElementById("options").appendChild(li);
+    });
+
+// Create a function here like family array project of Byjus to display next question \
+    // from array everytime instead of random question
+    var i=1;
+    var count=questions.length
+    function newques(){
+      if(i==count){
+        document.getElementById("heading").innerHTML = "Thank You...."
+        document.getElementById("math_ques").src = "last.jpg"
+        document.getElementById("question").innerHTML=""
+        document.getElementById("options").innerHTML="Well Done  <br> Timmy and his cat companion embrace the wonder of numbers in Mathland, their colorful adventures fueled by a newfound understanding of place values."
+        document.getElementById("cheers").play()
+        document.getElementById("result").innerHTML ="Click on the next button on the top right corner to practice more"
+      document.getElementById("nextbtn").style.display="none"
+      }
+      else{
+
+      document.getElementById("options").innerHTML=""
+      document.getElementById("result").innerHTML =""
+      
+  
+      updatedimage= img[i]
+      document.getElementById("math_ques").src = updatedimage
+
+// Display the question and options on the page
+      randomQuestion = questions[i];    
+    document.getElementById("question").innerHTML = randomQuestion.question;
+    
+    
+    randomQuestion.options.forEach(function(option) {
+      var li = document.createElement("li");
+      li.innerHTML = '<input type="radio" name="answer" value="' + option + '"> ' + option;
+      document.getElementById("options").appendChild(li);
+    });
+    document.getElementById("subbtn").style.display="inline-block"
+        document.getElementById("nextbtn").style.display="none"
+
+    i++;
+    }
+  }
+    
+    
+    // Check the selected answer against the correct answer
+    function checkAnswer() {
+      var selectedAnswer = document.querySelector('input[name="answer"]:checked').value;
+      if (selectedAnswer === randomQuestion.answer) {
+        document.getElementById("result").innerHTML = "Good Job! &#128512" ;
+        document.getElementById("points").play();
+        document.getElementById("subbtn").style.display="none"
+        document.getElementById("nextbtn").style.display="inline-block"
+      } else {
+        document.getElementById("result").innerHTML = "Try Again 😎!";
+        document.getElementById("fail").play();
+      }
+    }
+  </script>
+</center>
+</body>
+</html>
